@@ -1,0 +1,48 @@
+{
+  "model": "claude-sonnet-4-6",
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git mv:*)",
+      "Bash(mkdir -p:*)",
+      "Bash(chmod +x:*)",
+      "Bash(ls:*)",
+      "Bash(find docs -name:*)",
+      "Bash(wc -l:*)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl describe:*)",
+      "Bash(kubectl logs:*)",
+      "Bash(cilium status:*)",
+      "Bash(cilium connectivity:*)",
+      "Bash(cilium monitor:*)",
+      "Bash(cilium bpf:*)",
+      "Bash(cilium endpoint:*)",
+      "Bash(cilium policy:*)",
+      "Bash(hubble observe:*)",
+      "Bash(hubble status:*)"
+    ],
+    "deny": [
+      "Bash(kubectl delete namespace:*)",
+      "Bash(kubectl delete -f:*)",
+      "Bash(rm -rf:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(echo $CLAUDE_TOOL_INPUT | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))\" 2>/dev/null); [ -n \"$file\" ] && echo \"[cilium-practice] 저장: $(basename $file)\""
+          }
+        ]
+      }
+    ]
+  }
+}
