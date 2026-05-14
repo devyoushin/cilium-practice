@@ -11,13 +11,13 @@ A hands-on knowledge base for running Cilium on EKS — built from real operatio
 
 - [Learning Path](#learning-path)
 - [Documents](#documents)
-  - [Installation](#-installation-1-doc)
+  - [Installation](#-installation-2-docs)
   - [Architecture](#-architecture-1-doc)
-  - [Security](#-security-1-doc)
-  - [Observability](#-observability-1-doc)
-  - [Networking](#-networking-3-docs)
+  - [Security](#-security-3-docs)
+  - [Observability](#-observability-3-docs)
+  - [Networking](#-networking-4-docs)
   - [Service Mesh](#-service-mesh-1-doc)
-  - [Operations](#-operations-2-docs)
+  - [Operations](#-operations-3-docs)
 - [Manifest Structure](#manifest-structure)
 - [Key Concept Summary](#key-concept-summary)
 
@@ -27,19 +27,21 @@ A hands-on knowledge base for running Cilium on EKS — built from real operatio
 
 ```
 1. Installation      → docs/install/
-   └── Install Cilium on EKS (ENI mode, kube-proxy replacement)
+   ├── Install Cilium on EKS (ENI mode, kube-proxy replacement)
+   └── Upgrade Cilium (rolling upgrade, rollback)
 
 2. Core Concepts     → docs/architecture/
    └── eBPF, Cilium Agent, Operator, Hubble architecture
 
 3. Advanced Topics
-   ├── Security      → docs/security/       (NetworkPolicy, CiliumNetworkPolicy, Zero Trust)
-   ├── Observability → docs/observability/   (Hubble CLI/UI, Prometheus, Grafana)
-   ├── Networking    → docs/networking/      (BPF LB, Egress Gateway, BGP)
+   ├── Security      → docs/security/       (NetworkPolicy, WireGuard, FQDN Egress)
+   ├── Observability → docs/observability/   (Hubble, Prometheus metrics, Grafana)
+   ├── Networking    → docs/networking/      (BPF LB, Egress Gateway, BGP, ENI mode)
    └── Service Mesh  → docs/service-mesh/   (Sidecar-less mTLS, L7 policy)
 
 4. Operations        → docs/operations/
    ├── Troubleshooting common issues
+   ├── eBPF deep debugging (cilium monitor, BPF maps)
    └── End-to-End hands-on lab
 ```
 
@@ -47,13 +49,14 @@ A hands-on knowledge base for running Cilium on EKS — built from real operatio
 
 ## Documents
 
-### 📦 Installation (1 doc)
+### 📦 Installation (2 docs)
 
-> Cilium 설치, Helm 설정, ENI 모드 구성
+> Cilium 설치, 업그레이드, Helm 설정
 
 | File | Description |
 |------|-------------|
 | [install.md](./docs/install/install.md) | Install Cilium on EKS via Helm (ENI mode, kube-proxy replacement) |
+| [cilium-upgrade.md](./docs/install/cilium-upgrade.md) | Upgrade Cilium — Helm rolling upgrade, rollback, compatibility checks |
 
 ---
 
@@ -67,35 +70,40 @@ A hands-on knowledge base for running Cilium on EKS — built from real operatio
 
 ---
 
-### 🔒 Security (1 doc)
+### 🔒 Security (3 docs)
 
-> 네트워크 정책, L3/L4/L7 제어, Zero Trust
+> 네트워크 정책, 암호화, FQDN 기반 Egress 제어
 
 | File | Description |
 |------|-------------|
 | [network-policy-guide.md](./docs/security/network-policy-guide.md) | Network policies — K8s NetworkPolicy, CiliumNetworkPolicy, Zero Trust patterns |
+| [wireguard-encryption-guide.md](./docs/security/wireguard-encryption-guide.md) | WireGuard transparent encryption — node-to-node encryption, key management |
+| [fqdn-egress-policy.md](./docs/security/fqdn-egress-policy.md) | FQDN-based egress policies — DNS proxy, external API allowlisting |
 
 ---
 
-### 📊 Observability (1 doc)
+### 📊 Observability (3 docs)
 
-> Hubble 기반 네트워크 흐름 관찰, 메트릭 수집
+> Hubble, Prometheus 메트릭, Grafana 대시보드
 
 | File | Description |
 |------|-------------|
 | [hubble-guide.md](./docs/observability/hubble-guide.md) | Hubble — real-time flow observation, UI, Prometheus metrics |
+| [prometheus-metrics.md](./docs/observability/prometheus-metrics.md) | Prometheus metrics — Cilium Agent/Hubble metrics, alert rules, ServiceMonitor |
+| [grafana-dashboard-guide.md](./docs/observability/grafana-dashboard-guide.md) | Grafana dashboards — official dashboard import, custom panels, PromQL queries |
 
 ---
 
-### 🌐 Networking (3 docs)
+### 🌐 Networking (4 docs)
 
-> BPF 로드밸런싱, Egress Gateway, BGP Control Plane
+> BPF 로드밸런싱, Egress Gateway, BGP, ENI 모드
 
 | File | Description |
 |------|-------------|
 | [load-balancing-guide.md](./docs/networking/load-balancing-guide.md) | BPF load balancing — kube-proxy replacement, DSR, Maglev hashing |
 | [egress-gateway-guide.md](./docs/networking/egress-gateway-guide.md) | Egress Gateway — route pod traffic through fixed EIP |
 | [bgp-guide.md](./docs/networking/bgp-guide.md) | BGP Control Plane — advertise LoadBalancer IPs via BGP |
+| [eni-mode-guide.md](./docs/networking/eni-mode-guide.md) | ENI mode deep dive — IPAM, instance IP limits, prefix delegation, subnet management |
 
 ---
 
@@ -109,14 +117,15 @@ A hands-on knowledge base for running Cilium on EKS — built from real operatio
 
 ---
 
-### 🔧 Operations (2 docs)
+### 🔧 Operations (3 docs)
 
-> 트러블슈팅, E2E 실습
+> 트러블슈팅, E2E 실습, eBPF 디버깅
 
 | File | Description |
 |------|-------------|
 | [troubleshooting-guide.md](./docs/operations/troubleshooting-guide.md) | Common issues and diagnostic commands |
 | [e2e-practice.md](./docs/operations/e2e-practice.md) | End-to-End lab (install → policy → Hubble observation) |
+| [cilium-debug-guide.md](./docs/operations/cilium-debug-guide.md) | eBPF debugging — cilium monitor, BPF map inspection, packet tracing |
 
 ---
 
