@@ -1,0 +1,88 @@
+# Cilium Helm Values — 개발/테스트용
+# EKS ENI 모드 + kube-proxy 대체
+# 사용법: cp helm/values.yaml my-values.yaml
+#         my-values.yaml에서 <...> 항목 수정 후 설치
+
+# ── CNI 설정 ──────────────────────────────────────────────
+cni:
+  exclusive: true             # aws-node와 단독 실행
+
+# ── ENI 모드 (AWS VPC 네이티브 IPAM) ─────────────────────
+ipam:
+  mode: eni
+
+eni:
+  enabled: true
+  awsRegion: ap-northeast-2   # 실제 리전으로 변경
+  subnetTagsFilter:
+    "kubernetes.io/role/internal-elb": "1"  # Cilium이 사용할 서브넷 태그 필터
+
+# 오버레이 비활성화 (ENI 모드에서 불필요)
+tunnel: disabled
+routingMode: native
+
+# ── kube-proxy 대체 ───────────────────────────────────────
+kubeProxyReplacement: true
+k8sServiceHost: "<EKS_API_SERVER_ENDPOINT>"   # https:// 제외한 도메인만
+k8sServicePort: "443"
+
+# ── 로드밸런서 BPF 설정 ───────────────────────────────────
+loadBalancer:
+  algorithm: maglev           # 세션 어피니티 (random / maglev)
+  mode: snat                  # snat 또는 dsr
+
+# ── Hubble (관찰성) ───────────────────────────────────────
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+    replicas: 1
+  ui:
+    enabled: true
+    replicas: 1
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: false          # Prometheus Operator 사용 시 true
+
+# ── Operator ──────────────────────────────────────────────
+operator:
+  replicas: 1                 # 운영 환경에서는 2 권장
+
+# ── 리소스 제한 (개발용 낮은 값) ──────────────────────────
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# ── L7 프록시 (HTTP/gRPC 정책) ────────────────────────────
+l7Proxy: true
+
+# ── 보안 강화 옵션 ────────────────────────────────────────
+# WireGuard 암호화 (선택)
+# encryption:
+#   enabled: true
+#   type: wireguard
+
+# ── Ingress Controller (선택) ─────────────────────────────
+# ingressController:
+#   enabled: true
+#   loadbalancerMode: shared
+
+# ── BGP (온프레미스/Direct Connect 환경에서 선택) ─────────
+# bgpControlPlane:
+#   enabled: true
+
+# ── Egress Gateway (선택) ─────────────────────────────────
+# egressGateway:
+#   enabled: true
+
+# ── 디버그 (필요 시) ──────────────────────────────────────
+# debug:
+#   enabled: true

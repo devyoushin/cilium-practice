@@ -1,0 +1,48 @@
+# Egress Gateway 예시
+# 파드 트래픽을 고정 IP(EIP)를 통해 외부로 내보내기
+
+---
+# Egress Gateway 정책
+# production 네임스페이스의 backend 파드가
+# 203.0.113.0/24 대역으로 나갈 때 EIP 52.x.x.x 사용
+apiVersion: cilium.io/v2
+kind: CiliumEgressGatewayPolicy
+metadata:
+  name: production-backend-egress
+spec:
+  # 정책을 적용할 파드 선택
+  selectors:
+    - podSelector:
+        matchLabels:
+          app: backend
+      namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: production
+
+  # 이 정책이 적용될 목적지 대역
+  # 0.0.0.0/0 으로 설정하면 모든 외부 트래픽에 적용
+  destinationCIDRs:
+    - "203.0.113.0/24"      # 외부 API 서버 대역
+    - "198.51.100.0/24"     # 외부 DB 대역
+
+  # 사용할 게이트웨이 노드
+  egressGateway:
+    nodeSelector:
+      matchLabels:
+        egress-gateway: "true"    # 이 레이블을 가진 노드가 게이트웨이 역할
+    egressIP: "52.x.x.x"          # 실제 EIP 주소로 변경
+
+---
+# 게이트웨이 노드 레이블 적용 방법:
+# kubectl label node <NODE_NAME> egress-gateway=true
+
+# EIP를 게이트웨이 노드 ENI에 연결하는 방법:
+# INSTANCE_ID=$(kubectl get node <NODE_NAME> \
+#   -o jsonpath='{.spec.providerID}' | cut -d'/' -f5)
+# INTERFACE_ID=$(aws ec2 describe-instances \
+#   --instance-ids ${INSTANCE_ID} \
+#   --query "Reservations[].Instances[].NetworkInterfaces[0].NetworkInterfaceId" \
+#   --output text)
+# aws ec2 associate-address \
+#   --allocation-id <ALLOCATION_ID> \
+#   --network-interface-id ${INTERFACE_ID}

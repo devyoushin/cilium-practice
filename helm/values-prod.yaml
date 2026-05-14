@@ -1,0 +1,114 @@
+# Cilium Helm Values — 운영 (Production)
+# EKS ENI 모드 + 고가용성 설정
+
+# ── CNI 설정 ──────────────────────────────────────────────
+cni:
+  exclusive: true
+
+# ── ENI 모드 ──────────────────────────────────────────────
+ipam:
+  mode: eni
+
+eni:
+  enabled: true
+  awsRegion: ap-northeast-2
+  subnetTagsFilter:
+    "kubernetes.io/role/internal-elb": "1"
+
+tunnel: disabled
+routingMode: native
+
+# ── kube-proxy 대체 ───────────────────────────────────────
+kubeProxyReplacement: true
+k8sServiceHost: "<EKS_API_SERVER_ENDPOINT>"
+k8sServicePort: "443"
+
+# ── 로드밸런서 BPF ────────────────────────────────────────
+loadBalancer:
+  algorithm: maglev
+  mode: snat
+  acceleration: best-effort   # XDP 가속 (NIC 지원 시 자동 적용)
+
+# ── Hubble ────────────────────────────────────────────────
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+    replicas: 2               # HA를 위해 2개
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+  ui:
+    enabled: true
+    replicas: 1
+  metrics:
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+    serviceMonitor:
+      enabled: true           # Prometheus Operator 연동
+
+# ── Operator ──────────────────────────────────────────────
+operator:
+  replicas: 2                 # HA
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+# ── Agent 리소스 ──────────────────────────────────────────
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 2000m
+    memory: 1Gi
+
+# ── WireGuard 암호화 ──────────────────────────────────────
+encryption:
+  enabled: true
+  type: wireguard
+
+# ── L7 프록시 ─────────────────────────────────────────────
+l7Proxy: true
+
+# ── Egress Gateway ────────────────────────────────────────
+egressGateway:
+  enabled: true
+
+# ── BGP (필요 시 활성화) ──────────────────────────────────
+# bgpControlPlane:
+#   enabled: true
+
+# ── 모니터링 ──────────────────────────────────────────────
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+# ── 고급 성능 튜닝 ────────────────────────────────────────
+bpf:
+  preallocateMaps: true       # 성능 향상 (메모리 사전 할당)
+  mapDynamicSizeRatio: 0.0025
+  masquerade: true
+
+# ── 헬스 체크 ─────────────────────────────────────────────
+healthPort: 9879
+
+# ── 롤링 업데이트 설정 ────────────────────────────────────
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 2

@@ -1,0 +1,100 @@
+# CiliumNetworkPolicy 예시
+# L7(HTTP/gRPC/DNS) 포함 Cilium 전용 확장 정책
+
+---
+# 예시 1: HTTP 메서드/경로 기반 정책 (L7)
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: api-http-policy
+  namespace: default
+spec:
+  endpointSelector:
+    matchLabels:
+      app: api-server
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: frontend
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+          rules:
+            http:
+              - method: GET
+                path: "/api/v1/.*"
+              - method: POST
+                path: "/api/v1/items"
+
+---
+# 예시 2: DNS 기반 이그레스 정책 (FQDN)
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-external-fqdn
+  namespace: default
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend
+  egress:
+    # DNS 조회 허용 (필수)
+    - toEndpoints:
+        - matchLabels:
+            k8s:k8s-app: kube-dns
+            k8s:io.kubernetes.pod.namespace: kube-system
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+          rules:
+            dns:
+              - matchPattern: "*"
+    # 특정 도메인만 HTTPS 허용
+    - toFQDNs:
+        - matchName: "api.example.com"
+        - matchPattern: "*.amazonaws.com"
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+
+---
+# 예시 3: 클러스터 전체 정책 (CiliumClusterwideNetworkPolicy)
+# — health check, kube-system 접근 등 전역 규칙
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-cluster-health
+spec:
+  endpointSelector: {}      # 모든 파드에 적용
+  ingress:
+    - fromEntities:
+        - health             # Cilium 헬스 체크 허용
+    - fromEntities:
+        - kube-apiserver     # kube-apiserver 접근 허용
+
+---
+# 예시 4: gRPC 서비스 정책
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: grpc-service-policy
+  namespace: default
+spec:
+  endpointSelector:
+    matchLabels:
+      app: grpc-server
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: grpc-client
+      toPorts:
+        - ports:
+            - port: "50051"
+              protocol: TCP
+          rules:
+            http:
+              - method: POST
+                path: "/mypackage.MyService/.*"
