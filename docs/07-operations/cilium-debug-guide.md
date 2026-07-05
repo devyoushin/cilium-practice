@@ -783,11 +783,11 @@ kubectl -n kube-system port-forward svc/hubble-ui 12000:80
 
 ### 공식 문서 링크
 
-- [Cilium Troubleshooting Guide](https://docs.cilium.io/en/stable/operations/troubleshooting/)
-- [Cilium Monitor Reference](https://docs.cilium.io/en/stable/observability/visibility/)
+- [Cilium Troubleshooting Guide](https://docs.cilium.io/en/stable/07-operations/troubleshooting/)
+- [Cilium Monitor Reference](https://docs.cilium.io/en/stable/05-observability/visibility/)
 - [BPF and XDP Reference](https://docs.cilium.io/en/stable/bpf/)
 - [Cilium CLI Reference](https://docs.cilium.io/en/stable/cmdref/)
-- [Hubble Documentation](https://docs.cilium.io/en/stable/observability/hubble/)
+- [Hubble Documentation](https://docs.cilium.io/en/stable/05-observability/hubble/)
 
 ### 증상별 디버깅 명령 빠른 참조 테이블(Quick Reference)
 

@@ -232,7 +232,7 @@ spec:
           annotations:
             summary: "Cilium 드롭률이 1%를 초과"
             description: "드롭 원인: {{ $labels.reason }}, 현재 비율: {{ $value | humanizePercentage }}"
-            runbook_url: "https://docs.cilium.io/en/stable/observability/metrics/"
+            runbook_url: "https://docs.cilium.io/en/stable/05-observability/metrics/"
 
         - alert: CiliumCriticalDropRate
           expr: |
@@ -689,8 +689,8 @@ hubble status
 
 ### 공식 참고 자료
 
-- Cilium Metrics 공식 문서: <https://docs.cilium.io/en/v1.16/observability/metrics/>
-- Hubble Metrics 공식 문서: <https://docs.cilium.io/en/v1.16/observability/hubble/configuration/metrics/>
+- Cilium Metrics 공식 문서: <https://docs.cilium.io/en/v1.16/05-observability/metrics/>
+- Hubble Metrics 공식 문서: <https://docs.cilium.io/en/v1.16/05-observability/hubble/configuration/metrics/>
 - Cilium Grafana 대시보드: <https://grafana.com/grafana/dashboards/16611-cilium-metrics/>
 - Prometheus Operator ServiceMonitor 스펙: <https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.ServiceMonitor>
 

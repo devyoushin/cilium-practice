@@ -588,8 +588,8 @@ hubble observe -o json | jq '.flow | {
 
 ### 공식 문서 참고 링크
 
-- Cilium WireGuard 공식 문서: https://docs.cilium.io/en/v1.16/security/network/encryption-wireguard/
-- Cilium 암호화 개요: https://docs.cilium.io/en/v1.16/security/network/encryption/
+- Cilium WireGuard 공식 문서: https://docs.cilium.io/en/v1.16/04-security/network/encryption-wireguard/
+- Cilium 암호화 개요: https://docs.cilium.io/en/v1.16/04-security/network/encryption/
 - WireGuard 프로젝트 공식 사이트: https://www.wireguard.com/
 
 ### IPsec을 대신 사용해야 하는 경우

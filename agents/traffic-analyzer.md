@@ -76,7 +76,7 @@ hubble observe --from-pod <SOURCE_POD> --to-pod <DEST_POD>
 
 ## 참조 문서
 
-- `docs/networking/load-balancing-guide.md` — BPF 로드밸런싱
-- `docs/networking/egress-gateway-guide.md` — Egress Gateway
-- `docs/networking/bgp-guide.md` — BGP Control Plane
-- `docs/observability/hubble-guide.md` — Hubble 트래픽 관측
+- `docs/03-networking/load-balancing-guide.md` — BPF 로드밸런싱
+- `docs/03-networking/egress-gateway-guide.md` — Egress Gateway
+- `docs/03-networking/bgp-guide.md` — BGP Control Plane
+- `docs/05-observability/hubble-guide.md` — Hubble 트래픽 관측

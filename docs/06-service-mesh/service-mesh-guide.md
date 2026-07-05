@@ -268,5 +268,5 @@ kubectl -n kube-system exec ds/cilium-envoy -- \
 
 - [Cilium Service Mesh 문서](https://docs.cilium.io/en/stable/network/servicemesh/)
 - [Cilium Ingress Controller](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)
-- [WireGuard 투명 암호화](https://docs.cilium.io/en/stable/security/network/encryption-wireguard/)
-- [L7 정책](https://docs.cilium.io/en/stable/security/http/)
+- [WireGuard 투명 암호화](https://docs.cilium.io/en/stable/04-security/network/encryption-wireguard/)
+- [L7 정책](https://docs.cilium.io/en/stable/04-security/http/)

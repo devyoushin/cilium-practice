@@ -79,7 +79,7 @@
 
 ## 참조 문서
 
-- `docs/architecture/architecture-guide.md` — 아키텍처 전체 구성
-- `docs/networking/load-balancing-guide.md` — BPF 로드밸런싱
-- `docs/security/network-policy-guide.md` — 네트워크 정책 설계
-- `docs/observability/hubble-guide.md` — 관측성 스택 구성
+- `docs/02-architecture/architecture-guide.md` — 아키텍처 전체 구성
+- `docs/03-networking/load-balancing-guide.md` — BPF 로드밸런싱
+- `docs/04-security/network-policy-guide.md` — 네트워크 정책 설계
+- `docs/05-observability/hubble-guide.md` — 관측성 스택 구성

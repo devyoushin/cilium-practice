@@ -682,7 +682,7 @@ increase(cilium_policy_import_errors_total[1h])
 
 ### 공식 문서 참조 링크
 
-- [Cilium Upgrade Guide (공식)](https://docs.cilium.io/en/stable/operations/upgrade/)
+- [Cilium Upgrade Guide (공식)](https://docs.cilium.io/en/stable/07-operations/upgrade/)
 - [Cilium Release Notes](https://github.com/cilium/cilium/releases)
 - [Cilium Version Compatibility Matrix](https://docs.cilium.io/en/stable/network/kubernetes/requirements/)
 - [Cilium Helm Chart Values Reference](https://docs.cilium.io/en/stable/helm-reference/)

@@ -251,7 +251,7 @@ hubble observe --protocol dns --follow \
 
 ## 참고 링크
 
-- [Hubble 공식 문서](https://docs.cilium.io/en/stable/observability/hubble/)
+- [Hubble 공식 문서](https://docs.cilium.io/en/stable/05-observability/hubble/)
 - [Hubble CLI GitHub](https://github.com/cilium/hubble)
-- [Hubble 메트릭 레퍼런스](https://docs.cilium.io/en/stable/observability/metrics/)
+- [Hubble 메트릭 레퍼런스](https://docs.cilium.io/en/stable/05-observability/metrics/)
 - [Grafana 대시보드 목록](https://grafana.com/orgs/cilium/dashboards)

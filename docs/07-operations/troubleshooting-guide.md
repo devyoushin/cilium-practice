@@ -278,6 +278,6 @@ kubectl debug -it <POD_NAME> --image=nicolaka/netshoot --target=<CONTAINER_NAME>
 
 ## 참고 링크
 
-- [Cilium 트러블슈팅 공식 문서](https://docs.cilium.io/en/stable/operations/troubleshooting/)
-- [Cilium Sysdump](https://docs.cilium.io/en/stable/operations/troubleshooting/#sysdump)
-- [eBPF 디버깅](https://docs.cilium.io/en/stable/operations/troubleshooting/#bpf)
+- [Cilium 트러블슈팅 공식 문서](https://docs.cilium.io/en/stable/07-operations/troubleshooting/)
+- [Cilium Sysdump](https://docs.cilium.io/en/stable/07-operations/troubleshooting/#sysdump)
+- [eBPF 디버깅](https://docs.cilium.io/en/stable/07-operations/troubleshooting/#bpf)

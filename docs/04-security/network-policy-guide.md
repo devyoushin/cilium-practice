@@ -293,7 +293,7 @@ fromRequires:
 
 ## 참고 링크
 
-- [Cilium 정책 언어](https://docs.cilium.io/en/stable/security/policy/language/)
-- [K8s NetworkPolicy와 차이점](https://docs.cilium.io/en/stable/security/policy/kubernetes/)
-- [DNS 기반 정책](https://docs.cilium.io/en/stable/security/dns/)
-- [HTTP L7 정책](https://docs.cilium.io/en/stable/security/http/)
+- [Cilium 정책 언어](https://docs.cilium.io/en/stable/04-security/policy/language/)
+- [K8s NetworkPolicy와 차이점](https://docs.cilium.io/en/stable/04-security/policy/kubernetes/)
+- [DNS 기반 정책](https://docs.cilium.io/en/stable/04-security/dns/)
+- [HTTP L7 정책](https://docs.cilium.io/en/stable/04-security/http/)

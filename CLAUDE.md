@@ -71,8 +71,8 @@ cilium-practice/
 |--------|--------|------|
 | `/new-doc` | `/new-doc networking wireguard-encryption` | 신규 문서 스캐폴딩 |
 | `/new-runbook` | `/new-runbook operations cilium-upgrade` | 운영 Runbook 생성 |
-| `/review-doc` | `/review-doc docs/security/network-policy-guide.md` | 문서 품질 검토 |
-| `/add-troubleshooting` | `/add-troubleshooting docs/networking/load-balancing-guide.md <증상>` | 트러블슈팅 추가 |
+| `/review-doc` | `/review-doc docs/04-security/network-policy-guide.md` | 문서 품질 검토 |
+| `/add-troubleshooting` | `/add-troubleshooting docs/03-networking/load-balancing-guide.md <증상>` | 트러블슈팅 추가 |
 | `/search-kb` | `/search-kb WireGuard 암호화` | 지식 베이스 키워드 검색 |
 
 ---
@@ -85,7 +85,7 @@ docs/{카테고리}/{주제}.md
 
 - 카테고리: `install`, `architecture`, `security`, `observability`, `networking`, `service-mesh`, `operations`
 - 주제: 소문자 영어, 하이픈 구분
-- 예시: `docs/networking/wireguard-encryption-guide.md`, `docs/security/fqdn-egress-policy.md`
+- 예시: `docs/03-networking/wireguard-encryption-guide.md`, `docs/04-security/fqdn-egress-policy.md`
 
 ---
 
@@ -103,32 +103,32 @@ docs/{카테고리}/{주제}.md
 
 ## 카테고리별 문서 목록
 
-### docs/install/
+### docs/01-installation/
 | 파일 | 주제 |
 |------|------|
 | `install.md` | EKS에 Cilium 설치 (Helm, ENI 모드, kube-proxy 대체) |
 | `cilium-upgrade.md` | Cilium 업그레이드 — Helm 기반 롤링 업그레이드, 롤백, 호환성 확인 |
 
-### docs/architecture/
+### docs/02-architecture/
 | 파일 | 주제 |
 |------|------|
 | `architecture-guide.md` | Cilium 아키텍처 — eBPF, Agent, Operator, Hubble, ENI 모드 |
 
-### docs/security/
+### docs/04-security/
 | 파일 | 주제 |
 |------|------|
 | `network-policy-guide.md` | 네트워크 정책 — K8s NetworkPolicy, CiliumNetworkPolicy, Zero Trust |
 | `wireguard-encryption-guide.md` | WireGuard 투명 암호화 — 노드 간 암호화, 키 관리, IPsec 비교 |
 | `fqdn-egress-policy.md` | FQDN 기반 Egress 정책 — DNS 프록시, matchName/matchPattern, 외부 API 제어 |
 
-### docs/observability/
+### docs/05-observability/
 | 파일 | 주제 |
 |------|------|
 | `hubble-guide.md` | Hubble — 실시간 네트워크 흐름 관찰, UI, Prometheus 메트릭 |
 | `prometheus-metrics.md` | Prometheus 메트릭 — Cilium Agent/Hubble 지표, 알람 규칙, ServiceMonitor |
 | `grafana-dashboard-guide.md` | Grafana 대시보드 — 공식 대시보드 임포트, 커스텀 패널, PromQL 쿼리 |
 
-### docs/networking/
+### docs/03-networking/
 | 파일 | 주제 |
 |------|------|
 | `load-balancing-guide.md` | BPF 로드밸런싱 — kube-proxy 대체, DSR, Maglev 해싱 |
@@ -136,12 +136,12 @@ docs/{카테고리}/{주제}.md
 | `bgp-guide.md` | BGP Control Plane — LoadBalancer IP를 BGP로 광고 |
 | `eni-mode-guide.md` | ENI 모드 심화 — IPAM, 인스턴스 IP 한도, 프리픽스 위임, 서브넷 관리 |
 
-### docs/service-mesh/
+### docs/06-service-mesh/
 | 파일 | 주제 |
 |------|------|
 | `service-mesh-guide.md` | Cilium Service Mesh — 사이드카 없는 mTLS, L7 정책, 트래픽 관리 |
 
-### docs/operations/
+### docs/07-operations/
 | 파일 | 주제 |
 |------|------|
 | `troubleshooting-guide.md` | 자주 발생하는 문제와 진단 방법 |
